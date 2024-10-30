@@ -319,6 +319,31 @@
         body.is-auto-scrolling {
             cursor: default;
         }
+
+        .hidden {
+            display: none;
+        }
+        
+        .submit-button {
+            background-color: #3B82F6; /* Light blue color matching your image */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        
+        .submit-button.loading {
+            cursor: not-allowed;
+        }
+        
+        /* Simple animation for the text */
+        .submit-button.loading:after {
+            content: ' Sending...';
+        }
     </style>
 </head>
 <body>
@@ -477,11 +502,17 @@
             method="POST" 
             data-netlify="true"
             action="/thank-you"
+            netlify-honeypot="bot-field"
         >
+            <!-- Bot protection -->
+            <p class="hidden">
+                <label>Don't fill this out: <input name="bot-field"></label>
+            </p>
+    
             <!-- Required for Netlify forms -->
             <input type="hidden" name="form-name" value="contact">
             
-            <!-- Add the success redirect -->
+            <!-- Success redirect -->
             <input type="hidden" name="success_url" value="https://victoria-laguerre-portfolio.netlify.app/thank-you">
             
             <input 
@@ -524,8 +555,7 @@
                 id="submitButton" 
                 class="submit-button"
             >
-                <span class="button-text">Send Message</span>
-                <span class="loading-spinner">Sending...</span>
+                Send Message
             </button>
         </form>
     </div>
@@ -622,6 +652,14 @@
                 }
             });
         });
-    </script>                                    
+    </script> 
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            const button = document.getElementById('submitButton');
+            button.classList.add('loading');
+            button.textContent = 'Send Message Sending...';
+        });
+    </script>
 </body>
 </html>
