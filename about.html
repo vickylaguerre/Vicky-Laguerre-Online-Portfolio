@@ -471,28 +471,62 @@
 
     <div id="get-in-touch" class="get-in-touch">
         <h2>Message me!</h2>
-        <form class="contact-form" action="https://formsubmit.co/victorialaguerre2026@u.northwestern.edu" method="POST">
-            <!-- Redirect after submission -->
-            <input type="hidden" name="_next" value="https://vicky-laguerre-online-portfolio.vercel.app/thank-you.html">
+        <form 
+            class="contact-form" 
+            name="contact" 
+            method="POST" 
+            data-netlify="true"
+            action="/thank-you"
+        >
+            <!-- Required for Netlify forms -->
+            <input type="hidden" name="form-name" value="contact">
             
-            <!-- Custom subject line -->
-            <input type="hidden" name="_subject" value="New portfolio contact form submission">
+            <!-- Add the success redirect -->
+            <input type="hidden" name="success_url" value="https://victoria-laguerre-portfolio.netlify.app/thank-you">
             
-            <!-- Spam prevention -->
-            <input type="text" name="_honey" style="display:none">
+            <input 
+                type="text" 
+                name="name" 
+                placeholder="Your Name" 
+                required
+                aria-label="Your Name"
+                class="form-input"
+            >
             
-            <!-- Disable captcha (optional) -->
-            <input type="hidden" name="_captcha" value="false">
+            <input 
+                type="email" 
+                name="email" 
+                placeholder="Your Email" 
+                required
+                aria-label="Your Email"
+                class="form-input"
+            >
             
-            <!-- Auto-response to sender -->
-            <input type="hidden" name="_autoresponse" value="Thank you for your message! I'll get back to you soon.">
+            <input 
+                type="text" 
+                name="subject" 
+                placeholder="Subject" 
+                required
+                aria-label="Subject"
+                class="form-input"
+            >
             
-            <!-- Form fields -->
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <input type="text" name="subject" placeholder="Subject" required>
-            <textarea name="message" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
+            <textarea 
+                name="message" 
+                placeholder="Your Message" 
+                required
+                aria-label="Your Message"
+                class="form-textarea"
+            ></textarea>
+            
+            <button 
+                type="submit" 
+                id="submitButton" 
+                class="submit-button"
+            >
+                <span class="button-text">Send Message</span>
+                <span class="loading-spinner">Sending...</span>
+            </button>
         </form>
     </div>
     
