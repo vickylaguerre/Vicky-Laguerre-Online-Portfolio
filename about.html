@@ -472,8 +472,22 @@
     <div id="get-in-touch" class="get-in-touch">
         <h2>Message me!</h2>
         <form class="contact-form" action="https://formsubmit.co/victorialaguerre2026@u.northwestern.edu" method="POST">
-            <input type="hidden" name="_next" value="https://vicky-laguerre-online-portfolio.vercel.app/thank-you.html>
+            <!-- Redirect after submission -->
+            <input type="hidden" name="_next" value="https://vicky-laguerre-online-portfolio.vercel.app/thank-you.html">
+            
+            <!-- Custom subject line -->
             <input type="hidden" name="_subject" value="New portfolio contact form submission">
+            
+            <!-- Spam prevention -->
+            <input type="text" name="_honey" style="display:none">
+            
+            <!-- Disable captcha (optional) -->
+            <input type="hidden" name="_captcha" value="false">
+            
+            <!-- Auto-response to sender -->
+            <input type="hidden" name="_autoresponse" value="Thank you for your message! I'll get back to you soon.">
+            
+            <!-- Form fields -->
             <input type="text" name="name" placeholder="Your Name" required>
             <input type="email" name="email" placeholder="Your Email" required>
             <input type="text" name="subject" placeholder="Subject" required>
