@@ -1,15 +1,62 @@
+/* Base styles to ensure smooth transitions */
+* {
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Preserve desktop styles by default */
+@media screen and (min-width: 1025px) {
+    /* Ensure desktop layout stays intact */
+    .content {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .categories {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 40px;
+    }
+
+    .category {
+        width: calc(33.33% - 27px);
+    }
+}
+
+/* Tablet Styles */
+@media screen and (max-width: 1024px) {
+    .hero-name {
+        font-size: 3.5em;
+    }
+    
+    .categories {
+        gap: 30px;
+        padding: 20px;
+    }
+    
+    .category {
+        width: calc(50% - 15px);
+    }
+
+    .content {
+        padding: 30px 20px;
+    }
+}
+
 /* Mobile Styles */
 @media screen and (max-width: 768px) {
     /* Header & Navigation */
     header {
         flex-direction: column;
         padding: 10px;
+        position: relative;
     }
 
     .logo-container {
         width: 100%;
         justify-content: center;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
 
     .logo {
@@ -19,51 +66,70 @@
 
     nav {
         width: 100%;
-        justify-content: center;
     }
 
     nav ul {
         flex-direction: column;
-        width: 100%;
-        text-align: center;
+        align-items: center;
+        padding: 0;
+        margin: 0;
     }
 
     nav ul li {
-        margin: 8px 0;
+        margin: 10px 0;
         width: 100%;
-    }
-
-    /* Dropdown adjustments */
-    .dropdown-content {
-        position: static;
-        width: 100%;
-        box-shadow: none;
-        background-color: rgba(44, 62, 80, 0.95);
-        display: none;
-    }
-
-    .dropdown-content a {
-        padding: 8px;
         text-align: center;
     }
 
-    /* Hero Section */
-    .hero-content {
-        padding: 20px;
-        margin-top: 0;
+    /* Dropdown Menu */
+    .dropdown-content {
+        position: static;
+        width: 100%;
+        background-color: rgba(44, 62, 80, 0.95);
+        box-shadow: none;
+        display: none;
+        padding: 5px 0;
     }
 
-    .hero-question:first-of-type,
-    .hero-question:last-of-type {
-        font-size: 1.8em;
-        margin: 10px 0;
+    .dropdown.active .dropdown-content {
+        display: block;
+    }
+
+    .dropdown-content a {
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 0.9em;
+    }
+
+    /* Hero Section */
+    .fullscreen-hero {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .hero {
+        padding: 20px;
+    }
+
+    .hero-content {
+        padding: 40px 20px;
+    }
+
+    .hero-question:first-of-type {
+        font-size: 2em;
         margin-left: 0;
-        margin-right: 0;
+        margin-bottom: 20px;
     }
 
     .hero-name {
-        font-size: 2.8em;
+        font-size: 2.5em;
         margin: 15px 0;
+    }
+
+    .hero-question:last-of-type {
+        font-size: 2em;
+        margin-right: 0;
+        margin-bottom: 60px;
     }
 
     .profile-picture-container {
@@ -71,55 +137,154 @@
         height: 150px;
     }
 
-    /* Categories Grid */
+    .hero-background {
+        opacity: 0.8;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    /* Content Sections */
+    .content {
+        padding: 30px 15px;
+        margin: 0;
+        border-radius: 0;
+    }
+
     .categories {
-        gap: 20px;
+        gap: 30px;
         padding: 10px;
     }
 
     .category {
         width: 100%;
-        max-width: none;
+        margin: 0 auto;
+        max-width: 400px;
     }
 
-    /* Content Areas */
-    .content {
-        padding: 20px 10px;
-        margin: 10px;
+    .category img {
+        width: 100%;
+        height: auto;
+    }
+
+    .category h3 {
+        margin: 10px 0;
+        font-size: 1.2em;
     }
 
     /* Footer */
     footer {
-        padding: 20px 10px;
+        padding: 20px;
+        margin-top: 30px;
     }
 
     .footer-icons {
         flex-wrap: wrap;
-        gap: 15px;
-    }
-
-    .footer-icons a {
-        font-size: 24px;
-        margin: 0 10px;
-    }
-}
-
-/* Tablet Styles */
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-    .categories {
+        justify-content: center;
         gap: 20px;
     }
 
-    .category {
-        width: calc(50% - 10px);
+    .footer-icons a {
+        margin: 0 15px;
+        font-size: 24px;
     }
+}
 
+/* Small Mobile Styles */
+@media screen and (max-width: 375px) {
     .hero-name {
-        font-size: 3.5em;
+        font-size: 2.2em;
     }
 
     .hero-question:first-of-type,
     .hero-question:last-of-type {
-        font-size: 2em;
+        font-size: 1.8em;
     }
+
+    .profile-picture-container {
+        width: 120px;
+        height: 120px;
+    }
+
+    .logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .footer-icons a {
+        margin: 0 10px;
+        font-size: 22px;
+    }
+
+    .content {
+        padding: 20px 10px;
+    }
+}
+
+/* Landscape Mode */
+@media screen and (max-height: 600px) and (orientation: landscape) {
+    .fullscreen-hero {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .hero-content {
+        padding: 20px;
+    }
+
+    .profile-picture-container {
+        width: 100px;
+        height: 100px;
+    }
+
+    .hero-name {
+        font-size: 2.5em;
+        margin: 10px 0;
+    }
+
+    .hero-question:first-of-type,
+    .hero-question:last-of-type {
+        font-size: 1.8em;
+        margin-bottom: 30px;
+    }
+
+    nav ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    nav ul li {
+        width: auto;
+        margin: 5px 15px;
+    }
+}
+
+/* Smooth Scrolling for all devices */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Ensure images don't overflow their containers */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Accessibility - Touch targets for mobile */
+@media (hover: none) and (pointer: coarse) {
+    nav ul li a,
+    .footer-icons a,
+    .category a {
+        padding: 10px;
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Fix for iOS Safari momentum scrolling */
+.dropdown-content {
+    -webkit-overflow-scrolling: touch;
 }
