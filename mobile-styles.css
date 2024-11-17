@@ -1,0 +1,125 @@
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+    /* Header & Navigation */
+    header {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .logo-container {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .logo {
+        width: 60px;
+        height: 60px;
+    }
+
+    nav {
+        width: 100%;
+        justify-content: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+
+    nav ul li {
+        margin: 8px 0;
+        width: 100%;
+    }
+
+    /* Dropdown adjustments */
+    .dropdown-content {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        background-color: rgba(44, 62, 80, 0.95);
+        display: none;
+    }
+
+    .dropdown-content a {
+        padding: 8px;
+        text-align: center;
+    }
+
+    /* Hero Section */
+    .hero-content {
+        padding: 20px;
+        margin-top: 0;
+    }
+
+    .hero-question:first-of-type,
+    .hero-question:last-of-type {
+        font-size: 1.8em;
+        margin: 10px 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .hero-name {
+        font-size: 2.8em;
+        margin: 15px 0;
+    }
+
+    .profile-picture-container {
+        width: 150px;
+        height: 150px;
+    }
+
+    /* Categories Grid */
+    .categories {
+        gap: 20px;
+        padding: 10px;
+    }
+
+    .category {
+        width: 100%;
+        max-width: none;
+    }
+
+    /* Content Areas */
+    .content {
+        padding: 20px 10px;
+        margin: 10px;
+    }
+
+    /* Footer */
+    footer {
+        padding: 20px 10px;
+    }
+
+    .footer-icons {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .footer-icons a {
+        font-size: 24px;
+        margin: 0 10px;
+    }
+}
+
+/* Tablet Styles */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .categories {
+        gap: 20px;
+    }
+
+    .category {
+        width: calc(50% - 10px);
+    }
+
+    .hero-name {
+        font-size: 3.5em;
+    }
+
+    .hero-question:first-of-type,
+    .hero-question:last-of-type {
+        font-size: 2em;
+    }
+}
