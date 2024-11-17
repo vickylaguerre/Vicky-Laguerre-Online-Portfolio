@@ -114,6 +114,9 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
         }
         
         .main-description {
@@ -121,13 +124,12 @@
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
         }
         
         .project-section {
             display: flex;
             align-items: center;
-            margin-bottom: 40px;
+            gap: 20px;
         }
         
         .project-section:nth-child(even) {
@@ -151,10 +153,9 @@
             padding: 20px;
         }
         
-        /* Skills section styling */
         .skills-section {
             max-width: 800px;
-            margin: 50px auto;
+            margin: 0 auto;
             padding: 30px 30px;
             text-align: center;
             background-color: #f8f9fa;
@@ -195,35 +196,11 @@
             font-weight: 400;
         }
         
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-        }
-        
-        .footer-icons {
-            margin-top: 20px;
-        }
-        
-        .footer-icons a {
-            color: var(--accent-color);
-            font-size: 24px;
-            margin: 0 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-icons a:hover {
-            color: white;
-            transform: scale(1.2);
-        }
-
         .navigation-buttons {
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin: 40px 0; /* Adds space above the footer */
+            margin: 0 0 40px 0;
         }
 
         .navigation-buttons button {
@@ -244,6 +221,20 @@
 
         .navigation-buttons button:focus {
             outline: none;
+        }
+
+        @media (max-width: 768px) {
+            .project-section {
+                flex-direction: column !important;
+            }
+            
+            .project-image, .project-text {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -320,8 +311,6 @@
                 <p>This render features a modern rocking chair with a sleek, minimalist aesthetic. The chair's leather seat and wooden rockers were rendered with attention to texture and finish, showcasing the contrast between smooth metal and organic materials. Lighting and composition were carefully chosen to highlight the contours and ergonomic design, appealing to a contemporary furniture market.</p>
             </div>
         </div>
-    </div>
-    
 
         <div class="skills-section">
             <h2>Skills Utilized</h2>
