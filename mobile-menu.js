@@ -1,70 +1,48 @@
 document.addEventListener('DOMContentLoaded', function() {
     const dropdowns = document.querySelectorAll('.dropdown');
-    let activeDropdown = null;
     
-    // Function to close dropdown
-    function closeDropdown(dropdown) {
-        if (dropdown) {
-            dropdown.classList.remove('active');
-            if (activeDropdown === dropdown) {
-                activeDropdown = null;
-            }
-        }
-    }
-
-    // Function to open dropdown
-    function openDropdown(dropdown) {
-        if (activeDropdown && activeDropdown !== dropdown) {
-            closeDropdown(activeDropdown);
-        }
-        dropdown.classList.add('active');
-        activeDropdown = dropdown;
-    }
-
     // Handle dropdown clicks
     dropdowns.forEach(dropdown => {
-        const link = dropdown.querySelector('a');
+        // Get both the main link and the dropdown content
+        const mainLink = dropdown.querySelector('a');
         
-        link.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) { // Only for mobile
-                e.preventDefault();
-                e.stopPropagation();
+        // Add click event to the main dropdown link
+        mainLink.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) { // Only for mobile devices
+                e.preventDefault(); // Prevent navigation
                 
-                if (dropdown.classList.contains('active')) {
-                    closeDropdown(dropdown);
-                } else {
-                    openDropdown(dropdown);
-                }
+                // Toggle this dropdown
+                dropdown.classList.toggle('active');
+                
+                // Close other dropdowns
+                dropdowns.forEach(other => {
+                    if (other !== dropdown && other.classList.contains('active')) {
+                        other.classList.remove('active');
+                    }
+                });
             }
         });
-
-        // Prevent closing when clicking inside dropdown content
+        
+        // Handle clicks on dropdown content links
         const dropdownContent = dropdown.querySelector('.dropdown-content');
         if (dropdownContent) {
-            dropdownContent.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
-                    e.stopPropagation();
-                }
+            const links = dropdownContent.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Allow navigation for these links
+                    dropdown.classList.remove('active');
+                });
             });
         }
     });
 
-    // Close active dropdown when clicking outside
+    // Close dropdowns when clicking outside
     document.addEventListener('click', function(e) {
-        if (activeDropdown && !e.target.closest('.dropdown')) {
-            closeDropdown(activeDropdown);
+        if (!e.target.closest('.dropdown')) {
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
         }
-    });
-
-    // Handle resize events
-    let resizeTimer;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
-            if (window.innerWidth > 768 && activeDropdown) {
-                closeDropdown(activeDropdown);
-            }
-        }, 250);
     });
 
     // Handle scroll arrow
@@ -78,10 +56,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Close dropdowns when pressing ESC key
+    // Close dropdowns on ESC key
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && activeDropdown) {
-            closeDropdown(activeDropdown);
+        if (e.key === 'Escape') {
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
         }
     });
 });
