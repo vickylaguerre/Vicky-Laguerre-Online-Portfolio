@@ -542,5 +542,23 @@
             <a href="Victoria Laguerre - Resume.pdf" target="_blank" title="Resume"><i class="fas fa-file-alt"></i></a>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const scrollArrow = document.getElementById('scrollArrow');
+            const aboutSection = document.querySelector('.about-me-section');
+
+            if (!scrollArrow || !aboutSection) {
+                console.error('Scroll arrow or About Me section not found!');
+                return;
+            }
+
+            scrollArrow.addEventListener('click', function (e) {
+                e.preventDefault();
+                aboutSection.scrollIntoView({ behavior: 'smooth' });
+                console.log('Scroll triggered.');
+            });
+        });
+    </script>
 </body>
 </html>
