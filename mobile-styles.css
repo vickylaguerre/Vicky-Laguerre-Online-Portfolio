@@ -81,7 +81,7 @@ nav ul li a {
     text-align: center;
     padding: 50px 20px;
     position: relative;
-    height: 100vh; /* Fullscreen height for all devices */
+    height: 100vh; /* Fullscreen height */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -115,6 +115,7 @@ nav ul li a {
     color: white;
     z-index: 3;
     position: relative;
+    margin-top: -40px;
 }
 
 .hero-question:first-of-type {
@@ -152,29 +153,33 @@ nav ul li a {
 /* Mobile Styles */
 @media screen and (max-width: 768px) {
     .hero {
-        padding: 50px 20px; /* Same padding as desktop */
         height: 100vh; /* Maintain fullscreen height */
+        padding: 50px 20px; /* Same padding as desktop */
+        display: flex;
+        flex-direction: column; /* Retain column orientation */
+        align-items: center;
+        justify-content: center;
     }
 
     .hero h1 {
-        font-size: 2em; /* Slightly scaled down for smaller screens */
+        font-size: 2.5em; /* Match desktop font size */
     }
 
     .hero p {
-        font-size: 1.1em; /* Adjusted for readability */
+        font-size: 1.2em; /* Match desktop font size */
     }
 
     .hero-name {
-        font-size: 3.5em; /* Slightly scaled down for smaller screens */
+        font-size: 4.5em; /* Match desktop font size */
     }
 
     .hero-question:first-of-type,
     .hero-question:last-of-type {
-        font-size: 2em; /* Consistent scaling */
+        font-size: 2.5em; /* Match desktop font size */
     }
 
     .hero-content {
-        text-align: center; /* Keep centered */
+        text-align: center; /* Retain center alignment */
     }
 
     nav ul {
@@ -190,4 +195,3 @@ nav ul li a {
         width: 100%;
     }
 }
-
