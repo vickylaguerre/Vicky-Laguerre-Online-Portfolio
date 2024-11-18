@@ -81,7 +81,11 @@ nav ul li a {
     text-align: center;
     padding: 50px 20px;
     position: relative;
-    height: 100vh; /* Ensure fullscreen height on larger screens */
+    height: 100vh; /* Fullscreen height for all devices */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .hero h1 {
@@ -111,7 +115,6 @@ nav ul li a {
     color: white;
     z-index: 3;
     position: relative;
-    margin-top: -40px;
 }
 
 .hero-question:first-of-type {
@@ -119,7 +122,6 @@ nav ul li a {
     margin-bottom: 35px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     font-weight: 300;
-    margin-left: -20px;
 }
 
 .hero-name {
@@ -135,7 +137,6 @@ nav ul li a {
     margin-bottom: 100px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     font-weight: 300;
-    margin-right: -20px;
 }
 
 /* Content Section */
@@ -150,29 +151,34 @@ nav ul li a {
 
 /* Mobile Styles */
 @media screen and (max-width: 768px) {
-    /* Header & Navigation */
-    header {
-        flex-direction: column;
-        padding: 10px;
+    .hero {
+        padding: 50px 20px; /* Same padding as desktop */
+        height: 100vh; /* Maintain fullscreen height */
     }
 
-    .logo-container {
-        width: 100%;
-        margin-bottom: 15px;
+    .hero h1 {
+        font-size: 2em; /* Slightly scaled down for smaller screens */
     }
 
-    .logo {
-        width: 60px;
-        height: 60px;
+    .hero p {
+        font-size: 1.1em; /* Adjusted for readability */
     }
 
-    nav {
-        width: 100%;
+    .hero-name {
+        font-size: 3.5em; /* Slightly scaled down for smaller screens */
+    }
+
+    .hero-question:first-of-type,
+    .hero-question:last-of-type {
+        font-size: 2em; /* Consistent scaling */
+    }
+
+    .hero-content {
+        text-align: center; /* Keep centered */
     }
 
     nav ul {
-        flex-direction: column;
-        width: 100%;
+        flex-direction: column; /* Adjust navigation layout */
     }
 
     nav ul li {
@@ -182,60 +188,6 @@ nav ul li a {
     nav ul li a {
         padding: 12px 20px;
         width: 100%;
-        text-align: center;
-    }
-
-    /* Mobile dropdown */
-    .dropdown-content {
-        position: static;
-        width: 100%;
-        background-color: rgba(44, 62, 80, 0.95);
-        box-shadow: none;
-        padding: 0;
-    }
-
-    .dropdown > a::after {
-        content: '▼';
-        display: inline-block;
-        margin-left: 5px;
-        font-size: 0.8em;
-        transition: transform 0.3s ease;
-    }
-
-    .dropdown.active > a::after {
-        transform: rotate(180deg);
-    }
-
-    /* Mobile Hero */
-    .hero {
-        height: auto; /* Allow the content to dictate height */
-        padding: 40px 15px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .hero h1 {
-        font-size: 2.2em; /* Adjust font size for readability */
-        margin: 0;
-    }
-
-    .hero p {
-        font-size: 1.1em; /* Adjust font size for readability */
-        padding: 0 10px;
-        max-width: 100%;
-    }
-
-    .hero > * {
-        display: block;
-        width: 100%;
-        text-align: center;
-    }
-
-    /* Content Sections */
-    .content {
-        padding: 30px 15px;
-        margin: 0;
     }
 }
+
