@@ -54,19 +54,14 @@ nav ul li a {
 /* Dropdown styles */
 .dropdown {
     position: relative;
-    user-select: none;
 }
 
 .dropdown-content {
     background-color: var(--primary-color);
     min-width: 200px;
     border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 10;
 }
 
 .dropdown.active .dropdown-content {
@@ -77,14 +72,6 @@ nav ul li a {
     padding: 12px 20px;
     white-space: nowrap;
     text-align: center;
-    display: block;
-    color: white;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
-
-.dropdown-content a:hover {
-    background-color: var(--accent-color);
 }
 
 /* Hero Section Styles */
@@ -94,77 +81,94 @@ nav ul li a {
     text-align: center;
     padding: 50px 20px;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; /* Fullscreen height for larger screens */
-    gap: 20px;
 }
 
 .hero h1 {
-    font-size: 2.5em; /* Original font size for larger screens */
+    font-size: 2.5em;
     margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .hero p {
-    font-size: 1.2em; /* Original font size for larger screens */
+    font-size: 1.2em;
     margin: 0;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
-/* Fullscreen Hero Styles */
+/* Homepage Hero */
 .fullscreen-hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100vh; /* Ensure it maintains fullscreen on computers */
-}
-
-/* Scroll Arrow */
-.scroll-arrow {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 2em;
-    cursor: pointer;
+    text-align: center;
     color: white;
-    animation: bounce 1.5s infinite;
+    z-index: 3;
+    position: relative;
+    margin-top: -40px;
 }
 
-/* Animation for scroll arrow */
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
+.hero-question:first-of-type {
+    font-size: 2.5em;
+    margin-bottom: 35px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    font-weight: 300;
+    margin-left: -20px;
 }
 
-/* Responsive Styling (Only for Small Screens) */
+.hero-name {
+    font-size: 4.5em;
+    font-weight: 700;
+    margin: 20px 0;
+    text-shadow: 4px 4px 6px rgba(0,0,0,0.3);
+    letter-spacing: 2px;
+}
+
+.hero-question:last-of-type {
+    font-size: 2.5em;
+    margin-bottom: 100px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    font-weight: 300;
+    margin-right: -20px;
+}
+
+/* Content Section */
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Mobile Styles */
 @media screen and (max-width: 768px) {
-    .hero {
-        padding: 40px 20px;
-        height: auto; /* Allow the content to dictate height on small screens */
+    /* Header & Navigation */
+    header {
+        flex-direction: column;
+        padding: 10px;
     }
 
-    .hero h1 {
-        font-size: 2em; /* Adjust font size for readability on small screens */
+    .logo-container {
+        width: 100%;
+        margin-bottom: 15px;
     }
 
-    .hero p {
-        font-size: 1em; /* Adjust font size for smaller screens */
+    .logo {
+        width: 60px;
+        height: 60px;
     }
 
-    .fullscreen-hero {
-        height: auto; /* Prevent fullscreen enforcement on smaller screens */
+    nav {
+        width: 100%;
     }
 
-    /* Navigation updates for mobile */
     nav ul {
         flex-direction: column;
         width: 100%;
@@ -180,10 +184,13 @@ nav ul li a {
         text-align: center;
     }
 
+    /* Mobile dropdown */
     .dropdown-content {
         position: static;
         width: 100%;
+        background-color: rgba(44, 62, 80, 0.95);
         box-shadow: none;
+        padding: 0;
     }
 
     .dropdown > a::after {
@@ -197,5 +204,35 @@ nav ul li a {
     .dropdown.active > a::after {
         transform: rotate(180deg);
     }
-}
 
+    /* Mobile Hero */
+    .hero {
+        padding: 40px 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .hero h1 {
+        font-size: 2.2em;
+        margin: 0;
+        padding: 0;
+    }
+
+    .hero p {
+        font-size: 1.1em;
+        padding: 0 10px;
+        max-width: 100%;
+    }
+
+    .hero > * {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Content Sections */
+    .content {
+        padding: 30px 15px;
+        margin: 0;
