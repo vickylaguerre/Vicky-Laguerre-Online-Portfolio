@@ -258,20 +258,18 @@
             display: block;
         }
 
-        .scroll-arrow {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            cursor: pointer;
+        .scroll-arrow p {
+            font-size: 1.5em;
             color: white;
+            cursor: pointer;
             transition: opacity 0.3s ease;
+            margin: 0;
         }
 
-        .scroll-arrow:hover {
+        .scroll-arrow p:hover {
             opacity: 0.7;
         }
-
+        
         /* Fade-in animation for about-me content */
         .about-me-content {
             opacity: 0;
@@ -379,10 +377,7 @@
             <h1>About Me</h1>
             <p class="hero-description">Get to know the person behind the projects</p>
             <div class="scroll-arrow" id="scrollArrow">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7 13L12 18L17 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M7 7L12 12L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                <p>Click me!</p>
             </div>
         </div>
     </div>
