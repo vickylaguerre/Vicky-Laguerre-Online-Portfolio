@@ -388,42 +388,50 @@
             
             <div class="project-section">
                 <div class="project-text">
-                    <h2>Key Achievements</h2>
-                    <ul>
-                        <li>Guided a team of 4 students to create a program addressing the achievement gap.</li>
-                        <li>Developed two questionnaires: one for tutors and one for students, to collect essential data.</li>
-                        <li>Coded a Matlab program to process input data from questionnaires and generate reliable tutor-student matches.</li>
-                    </ul>
+                    <h2>Collecting Data</h2>
+                    <p>To collect data from the mentors and mentees, I developed a research quiz and two questionnaires:
+                        <ul>
+                            <li>The research quiz is used to create numeric metrics for the answers on the questionnaires; weights calculated for each hobby/value to determine what is more important to a mentee or mentor.</li>
+                            <li>The two, questionnaires, one designed for mentees and the other for mentors, are for gathering data on mentors and mentees. Each questionnaire includes a mix of multiple-choice and open-ended questions to capture qualitative information to be quantified using the weights from the research quiz, to ensure quality pairings.</li>
+                        </ul>    
+                    <p>This comprehensive approach to data collection enabled our matching algorithm to consider multiple dimensions of compatibility, going beyond just academic fit to include personal, social, and emotional factors that could impact the success of tutoring relationships.</p>        
                 </div>
                 <div class="project-image">
                     <img src="questionnaires.png" alt="Survey design process">
-                    <p class="image-caption">Our mentee and mentor questionnaires</p>
+                    <p class="image-caption">Mentee and mentor questionnaires</p>
                 </div>
             </div>
             
             <div class="project-section">
                 <div class="project-text">
-                    <h2>Skills Developed</h2>
+                    <h2>The Algorithm</h2>
                     <ul>
-                        <li>Project leadership</li>
-                        <li>Survey design and data collection</li>
-                        <li>Matlab programming</li>
-                        <li>Data processing and analysis</li>
-                        <li>Algorithm development for matching</li>
-                        <li>Problem-solving in educational contexts</li>
-                        <li>Team coordination and management</li>
+                        <li>Matches students and tutors based on compatibility scores, ensuring balanced assignments and high-quality pairings.</li>
+                        <li>Inputs include the number of students, tutors, and their compatibility vectors from a questionnaire.</li>
+                        <li>Assigns students to the most compatible tutor, enforcing a 4-student-per-tutor limit and reallocating low-scoring matches.</li>
+                        <li>Refines matches using a hill-climbing algorithm, optimizing total compatibility through iterative improvements.</li>
+                        <li>Outputs clear, actionable results, highlighting student-tutor pairs and any unassigned tutors.</li>
+                        <li>Promotes fair, data-driven matching, improving student-tutor relationships and enhancing overall program satisfaction.</li>
                     </ul>
                 </div>
                 <div class="project-image">
                     <img src="matlab code.png" alt="Matlab code snippet">
-                    <p class="image-caption">Developing our Matlab program for data processing</p>
+                    <p class="image-caption">Matlab program for data processing</p>
                 </div>
             </div>
             
             <div class="project-section">
                 <div class="project-text">
-                    <h2>Project Impact</h2>
-                    <p>Our goal for this project was to create a data-driven matching system that significantly improved the effectiveness of tutoring programs in the area. By coding an algorithm that carefully pairs tutors with students based on various factors, we hope that this program will eventually be implemented into tutoring programs across Evanston and the Chicagoland area, to create more meaningful and productive learning relationships.</p>
+                    <h2>Project Outcome</h2>
+                    <ul>
+                        <li>Successfully created a data-driven matching system to improve tutoring program effectiveness</li>
+                        <li>Developed a sophisticated algorithm that considers multiple factors for optimal tutor-student pairing</li>
+                        <li>Designed the system for scalability and implementation across Evanston tutoring programs</li>
+                        <li>Data processing and analysis</li>
+                        <li>Positioned the program for potential expansion throughout the Chicagoland area</li>
+                        <li>Problem-solving in educational contexts</li>
+                        <li>Created a tool that fosters more meaningful and productive learning relationships between tutors and students</li>
+                    </ul>
                 </div>
                 <div class="project-image">
                     <img src="maxmatch impact.png" alt="Students benefiting from the program">
