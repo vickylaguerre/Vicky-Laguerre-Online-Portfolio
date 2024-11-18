@@ -1,225 +1,189 @@
 /* Base styles */
-* {
-    transition: all 0.3s ease;
-    box-sizing: border-box;
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #8e44ad;
+    --accent-color: #3498db;
+    --max-width: 1200px;
+    --header-height: 100px;
 }
 
-/* Header and Navigation Styles */
-header {
-    position: relative;
+/* General responsive container */
+.container {
     width: 100%;
-    z-index: 1000;
-    background-color: var(--primary-color);
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-/* Logo styles */
+/* Header */
+header {
+    position: fixed;
+    width: 100%;
+    background-color: var(--primary-color);
+    z-index: 1000;
+}
+
 .logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 120px;
 }
 
 .logo {
-    transition: all 0.3s ease;
+    width: 100%;
+    height: auto;
 }
 
-/* Navigation styles */
+/* Navigation */
 nav {
     display: flex;
-    justify-content: center;
-    width: 100%;
+    align-items: center;
 }
 
 nav ul {
     display: flex;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+    gap: 1.5rem;
 }
 
-nav ul li {
-    position: relative;
+/* Hamburger menu for mobile */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 10px;
 }
 
-nav ul li a {
-    display: block;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: white;
-    text-align: center;
+.menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
     transition: all 0.3s ease;
 }
 
-/* Dropdown styles */
-.dropdown {
-    position: relative;
-}
-
-.dropdown-content {
-    background-color: var(--primary-color);
-    min-width: 200px;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    display: none;
-}
-
-.dropdown.active .dropdown-content {
-    display: block;
-}
-
-.dropdown-content a {
-    padding: 12px 20px;
-    white-space: nowrap;
-    text-align: center;
-}
-
-/* Hero Section Styles */
-.hero {
-    background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
-    color: white;
-    text-align: center;
-    padding: 50px 20px;
-    position: relative;
-}
-
-/* Homepage Hero - consistent across all devices */
+/* Hero Section */
 .fullscreen-hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    min-height: 100vh;
+    padding-top: var(--header-height);
 }
 
 .hero-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
     text-align: center;
-    color: white;
-    z-index: 3;
-    position: relative;
-    margin-top: -40px;
-    padding: 0 20px;
-}
-
-.hero-question:first-of-type {
-    font-size: clamp(1.8em, 4vw, 2.5em);
-    margin-bottom: 35px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    font-weight: 300;
-    margin-left: -20px;
 }
 
 .hero-name {
-    font-size: clamp(2.5em, 6vw, 4.5em);
-    font-weight: 700;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
     margin: 20px 0;
-    text-shadow: 4px 4px 6px rgba(0,0,0,0.3);
-    letter-spacing: 2px;
 }
 
-.hero-question:last-of-type {
-    font-size: clamp(1.8em, 4vw, 2.5em);
-    margin-bottom: 100px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    font-weight: 300;
-    margin-right: -20px;
+.hero-question {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
 }
 
-/* Content Section */
-.content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 50px 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+/* Categories */
+.categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
 }
 
-/* Mobile Styles */
-@media screen and (max-width: 768px) {
-    /* Header & Navigation */
+.category {
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+.category img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+/* Footer */
+footer {
+    padding: 2rem;
+    text-align: center;
+}
+
+.footer-icons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    .hero-background {
+        max-width: 90vw;
+    }
+    
+    .profile-picture-container {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+@media (max-width: 768px) {
     header {
-        flex-direction: column;
-        padding: 10px;
+        padding: 1rem;
     }
-
-    .logo-container {
-        width: 100%;
-        margin-bottom: 15px;
+    
+    .menu-toggle {
+        display: flex;
     }
-
-    .logo {
-        width: 60px;
-        height: 60px;
-    }
-
-    nav {
-        width: 100%;
-    }
-
+    
     nav ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
         flex-direction: column;
-        width: 100%;
+        background-color: var(--primary-color);
+        padding: 1rem;
     }
-
-    nav ul li {
-        width: 100%;
+    
+    nav ul.active {
+        display: flex;
     }
-
-    nav ul li a {
-        padding: 12px 20px;
-        width: 100%;
-        text-align: center;
-    }
-
-    /* Mobile dropdown */
+    
     .dropdown-content {
         position: static;
-        width: 100%;
-        background-color: rgba(44, 62, 80, 0.95);
-        box-shadow: none;
-        padding: 0;
+        background: transparent;
+        padding-left: 1rem;
     }
-
-    .dropdown > a::after {
-        content: '▼';
-        display: inline-block;
-        margin-left: 5px;
-        font-size: 0.8em;
-        transition: transform 0.3s ease;
+    
+    .profile-picture-container {
+        width: 150px;
+        height: 150px;
     }
-
-    .dropdown.active > a::after {
-        transform: rotate(180deg);
+    
+    .categories {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        padding: 1.5rem;
     }
+}
 
-    /* Hero Mobile Adjustments */
-    .hero {
-        padding: 50px 20px;
-        display: block;
-    }
-
-    .hero > * {
-        width: auto;
-    }
-
-    .hero-question:first-of-type {
-        margin-left: 0;
-    }
-
-    .hero-question:last-of-type {
-        margin-right: 0;
-    }
-
+@media (max-width: 480px) {
     .hero-content {
-        margin-top: 0;
+        width: 95%;
     }
-
-    /* Content Sections */
-    .content {
-        padding: 30px 15px;
-        margin: 0;
+    
+    .profile-picture-container {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .footer-icons {
+        gap: 1.5rem;
+    }
+    
+    .categories {
+        grid-template-columns: 1fr;
+        padding: 1rem;
     }
 }
