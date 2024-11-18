@@ -12,73 +12,110 @@ document.addEventListener('DOMContentLoaded', function() {
     const nav = document.querySelector('nav');
     nav.parentNode.insertBefore(mobileMenuButton, nav);
 
-    mobileMenuButton.addEventListener('click', function() {
+    mobileMenuButton.addEventListener('click', function(e) {
+        e.stopPropagation();
         nav.classList.toggle('mobile-menu-active');
         mobileMenuButton.classList.toggle('active');
         mobileMenuButton.setAttribute('aria-expanded', nav.classList.contains('mobile-menu-active'));
     });
 
-    // Scroll Arrow Functionality
-    const scrollArrow = document.getElementById('scrollArrow');
-    const contentSections = document.querySelectorAll('.about-me-content');
-    let currentIndex = 0;
-    let isScrolling = false;
-
-    function showSection(index) {
-        if (index >= 0 && index < contentSections.length) {
-            contentSections[index].classList.add('show');
-            contentSections[index].scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'center' 
-            });
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (nav.classList.contains('mobile-menu-active') && 
+            !nav.contains(e.target) && 
+            !mobileMenuButton.contains(e.target)) {
+            nav.classList.remove('mobile-menu-active');
+            mobileMenuButton.classList.remove('active');
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
         }
-    }
+    });
 
-    function startScrollSequence() {
-        if (isScrolling) return;
-        isScrolling = true;
-        
-        // Hide all sections initially
-        contentSections.forEach(section => section.classList.remove('show'));
-        currentIndex = 0;
+    // Scroll Animation Functionality
+    const scrollArrow = document.getElementById('scrollArrow');
+    const aboutSection = document.querySelector('.about-me-section');
+    const contentSections = document.querySelectorAll('.about-me-content');
+    let isAnimating = false;
 
-        // Show sections one by one
-        function showNext() {
-            if (currentIndex < contentSections.length && isScrolling) {
-                showSection(currentIndex);
-                currentIndex++;
-                setTimeout(showNext, 2000); // Adjust timing as needed
-            } else {
-                isScrolling = false;
+    // Initially hide all sections
+    contentSections.forEach(section => {
+        section.classList.remove('show');
+    });
+
+    function revealSection(index) {
+        if (index < contentSections.length) {
+            const section = contentSections[index];
+            section.classList.add('show');
+            
+            const targetY = section.getBoundingClientRect().top + window.pageYOffset - 100;
+            window.scrollTo({
+                top: targetY,
+                behavior: 'smooth'
+            });
+
+            setTimeout(() => {
+                if (isAnimating) {
+                    revealSection(index + 1);
+                }
+            }, 1500); // Delay between sections
+        } else {
+            isAnimating = false;
+            // Scroll to contact section at the end
+            const contactSection = document.getElementById('get-in-touch');
+            if (contactSection) {
+                setTimeout(() => {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                }, 1000);
             }
         }
-
-        showNext();
     }
 
-    // Stop scroll sequence if user interacts
-    function stopScrollSequence() {
-        isScrolling = false;
-        contentSections.forEach(section => section.classList.add('show'));
+    function startAnimation() {
+        if (isAnimating) return;
+        
+        isAnimating = true;
+        
+        // Hide all sections first
+        contentSections.forEach(section => {
+            section.classList.remove('show');
+        });
+
+        // Scroll to about section
+        if (aboutSection) {
+            aboutSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // Start revealing sections after initial scroll
+            setTimeout(() => {
+                revealSection(0);
+            }, 500);
+        }
     }
 
-    // Event Listeners
-    if (scrollArrow) {
-        scrollArrow.addEventListener('click', function(e) {
-            e.preventDefault();
-            startScrollSequence();
+    function stopAnimation() {
+        isAnimating = false;
+        // Show all sections immediately
+        contentSections.forEach(section => {
+            section.classList.add('show');
         });
     }
 
-    // Stop auto-scroll on user interaction
-    document.addEventListener('wheel', stopScrollSequence);
-    document.addEventListener('touchstart', stopScrollSequence);
-    document.addEventListener('keydown', stopScrollSequence);
-    document.addEventListener('click', function(e) {
-        if (!scrollArrow.contains(e.target)) {
-            stopScrollSequence();
-        }
-    });
+    // Event Listeners
+    if (scrollArrow && aboutSection) {
+        scrollArrow.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            startAnimation();
+        });
+
+        // Stop animation on user interaction
+        document.addEventListener('wheel', stopAnimation);
+        document.addEventListener('touchstart', stopAnimation);
+        document.addEventListener('keydown', stopAnimation);
+        document.addEventListener('click', function(e) {
+            if (!scrollArrow.contains(e.target)) {
+                stopAnimation();
+            }
+        });
+    }
 
     // Contact Form Functionality
     const contactForm = document.getElementById('contactForm');
@@ -90,4 +127,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Show first section by default after a short delay
+    setTimeout(() => {
+        const firstSection = contentSections[0];
+        if (firstSection) {
+            firstSection.classList.add('show');
+        }
+    }, 500);
 });
