@@ -99,38 +99,32 @@ nav ul li a {
     color: white;
     z-index: 3;
     position: relative;
+    margin-top: -40px;
     padding: 0 20px;
-    height: 100%;
-    justify-content: center;
-    gap: 5vh;
-    transform: translateY(0);
 }
 
 .hero-question:first-of-type {
     font-size: clamp(1.8em, 4vw, 2.5em);
+    margin-bottom: 35px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     font-weight: 300;
     margin-left: -20px;
-    margin-bottom: 2vh;
-    transform: translateY(-15vh);
 }
 
 .hero-name {
     font-size: clamp(2.5em, 6vw, 4.5em);
     font-weight: 700;
+    margin: 20px 0;
     text-shadow: 4px 4px 6px rgba(0,0,0,0.3);
     letter-spacing: 2px;
-    margin: 2vh 0;
-    transform: translateY(-15vh);
 }
 
 .hero-question:last-of-type {
     font-size: clamp(1.8em, 4vw, 2.5em);
+    margin-bottom: 100px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     font-weight: 300;
     margin-right: -20px;
-    margin-top: 2vh;
-    transform: translateY(-15vh);
 }
 
 /* Content Section */
@@ -211,23 +205,16 @@ nav ul li a {
         width: auto;
     }
 
-    .hero-content {
-        gap: 4vh;
-        transform: translateY(0);
-    }
-
     .hero-question:first-of-type {
         margin-left: 0;
-        transform: translateY(-10vh);
-    }
-
-    .hero-name {
-        transform: translateY(-10vh);
     }
 
     .hero-question:last-of-type {
         margin-right: 0;
-        transform: translateY(-10vh);
+    }
+
+    .hero-content {
+        margin-top: 0;
     }
 
     /* Content Sections */
