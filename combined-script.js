@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile Menu Functionality
+    // Mobile Menu Setup
     const mobileMenuButton = document.createElement('button');
     mobileMenuButton.className = 'mobile-menu-button';
     mobileMenuButton.setAttribute('aria-label', 'Toggle mobile menu');
@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const nav = document.querySelector('nav');
     nav.parentNode.insertBefore(mobileMenuButton, nav);
 
+    // Mobile Menu Toggle
     mobileMenuButton.addEventListener('click', function(e) {
         e.stopPropagation();
         nav.classList.toggle('mobile-menu-active');
@@ -19,18 +20,56 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileMenuButton.setAttribute('aria-expanded', nav.classList.contains('mobile-menu-active'));
     });
 
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(e) {
-        if (nav.classList.contains('mobile-menu-active') && 
-            !nav.contains(e.target) && 
-            !mobileMenuButton.contains(e.target)) {
-            nav.classList.remove('mobile-menu-active');
-            mobileMenuButton.classList.remove('active');
-            mobileMenuButton.setAttribute('aria-expanded', 'false');
+    // Dropdown Management
+    const dropdowns = document.querySelectorAll('.dropdown');
+    let currentlyOpenDropdown = null;
+
+    dropdowns.forEach(dropdown => {
+        const mainLink = dropdown.querySelector('a');
+        
+        mainLink.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                
+                if (currentlyOpenDropdown && currentlyOpenDropdown !== dropdown) {
+                    currentlyOpenDropdown.classList.remove('active');
+                }
+                
+                dropdown.classList.toggle('active');
+                currentlyOpenDropdown = dropdown.classList.contains('active') ? dropdown : null;
+            }
+        });
+
+        // Handle dropdown content links
+        const dropdownContent = dropdown.querySelector('.dropdown-content');
+        if (dropdownContent) {
+            const links = dropdownContent.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', function() {
+                    dropdown.classList.remove('active');
+                    currentlyOpenDropdown = null;
+                    nav.classList.remove('mobile-menu-active');
+                    mobileMenuButton.classList.remove('active');
+                });
+            });
         }
     });
 
-    // Scroll Animation Functionality
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!nav.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+            nav.classList.remove('mobile-menu-active');
+            mobileMenuButton.classList.remove('active');
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
+            
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+            currentlyOpenDropdown = null;
+        }
+    });
+
+    // Scroll Animation Setup
     const scrollArrow = document.getElementById('scrollArrow');
     const aboutSection = document.querySelector('.about-me-section');
     const contentSections = document.querySelectorAll('.about-me-content');
@@ -56,10 +95,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (isAnimating) {
                     revealSection(index + 1);
                 }
-            }, 1500); // Delay between sections
+            }, 1500);
         } else {
             isAnimating = false;
-            // Scroll to contact section at the end
             const contactSection = document.getElementById('get-in-touch');
             if (contactSection) {
                 setTimeout(() => {
@@ -74,16 +112,15 @@ document.addEventListener('DOMContentLoaded', function() {
         
         isAnimating = true;
         
-        // Hide all sections first
+        // Reset sections
         contentSections.forEach(section => {
             section.classList.remove('show');
         });
 
-        // Scroll to about section
+        // Start animation sequence
         if (aboutSection) {
             aboutSection.scrollIntoView({ behavior: 'smooth' });
             
-            // Start revealing sections after initial scroll
             setTimeout(() => {
                 revealSection(0);
             }, 500);
@@ -92,13 +129,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function stopAnimation() {
         isAnimating = false;
-        // Show all sections immediately
         contentSections.forEach(section => {
             section.classList.add('show');
         });
     }
 
-    // Event Listeners
+    // Scroll Arrow Event Listeners
     if (scrollArrow && aboutSection) {
         scrollArrow.addEventListener('click', function(e) {
             e.preventDefault();
@@ -110,25 +146,23 @@ document.addEventListener('DOMContentLoaded', function() {
         document.addEventListener('wheel', stopAnimation);
         document.addEventListener('touchstart', stopAnimation);
         document.addEventListener('keydown', stopAnimation);
-        document.addEventListener('click', function(e) {
-            if (!scrollArrow.contains(e.target)) {
-                stopAnimation();
-            }
-        });
     }
 
-    // Contact Form Functionality
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            const button = document.getElementById('submitButton');
-            if (button) {
-                button.classList.add('loading');
-            }
-        });
-    }
+    // ESC key handler
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            nav.classList.remove('mobile-menu-active');
+            mobileMenuButton.classList.remove('active');
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
+            
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+            currentlyOpenDropdown = null;
+        }
+    });
 
-    // Show first section by default after a short delay
+    // Show first section by default
     setTimeout(() => {
         const firstSection = contentSections[0];
         if (firstSection) {
