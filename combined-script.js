@@ -1,5 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Get all necessary elements
+document.addEventListener('DOMContentLoaded', function () {
+    // Get necessary elements
     const scrollArrow = document.getElementById('scrollArrow');
     const aboutSection = document.querySelector('.about-me-section');
     const contentSections = document.querySelectorAll('.about-me-content');
@@ -12,38 +12,38 @@ document.addEventListener('DOMContentLoaded', function() {
         const dropdownContent = dropdown.querySelector('.dropdown-content');
         
         if (dropdownContent) {
-            // On mobile, handle click events
-            link.addEventListener('click', function(e) {
+            // Handle clicks for dropdown links on mobile
+            link.addEventListener('click', function (e) {
                 if (window.innerWidth <= 768) {
                     e.preventDefault();
-                    
+
                     // Close other dropdowns
                     dropdowns.forEach(d => {
                         if (d !== dropdown && d.classList.contains('active')) {
                             d.classList.remove('active');
                         }
                     });
-                    
+
                     dropdown.classList.toggle('active');
                 }
             });
 
-            // Handle dropdown content links
+            // Close dropdown when clicking on links inside
             const links = dropdownContent.querySelectorAll('a');
             links.forEach(dropdownLink => {
-                dropdownLink.addEventListener('click', function() {
+                dropdownLink.addEventListener('click', function () {
                     dropdown.classList.remove('active');
                 });
             });
         }
     });
 
-    // Initially hide all sections
+    // Initialize content sections as hidden
     contentSections.forEach(section => {
         section.classList.remove('show');
     });
 
-    // Show first section by default
+    // Show the first section after a delay
     setTimeout(() => {
         if (contentSections.length > 0) {
             contentSections[0].classList.add('show');
@@ -55,20 +55,23 @@ document.addEventListener('DOMContentLoaded', function() {
             const section = contentSections[index];
             section.classList.add('show');
             
+            // Smoothly scroll to the next section
             const targetY = section.getBoundingClientRect().top + window.pageYOffset - 100;
             window.scrollTo({
                 top: targetY,
-                behavior: 'smooth'
+                behavior: 'smooth',
             });
 
+            // Reveal the next section after a delay
             setTimeout(() => {
                 if (isAnimating) {
                     revealSection(index + 1);
                 }
-            }, 1500); // Delay between sections
+            }, 1500); // Delay between revealing sections
         } else {
             isAnimating = false;
-            // Scroll to contact section at the end
+
+            // Scroll to the contact section at the end
             const contactSection = document.getElementById('get-in-touch');
             if (contactSection) {
                 setTimeout(() => {
@@ -79,19 +82,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function startAnimation() {
-        if (isAnimating) return;
-        
+        if (isAnimating) return; // Prevent multiple triggers
+
         isAnimating = true;
-        
-        // Reset sections
+
+        // Reset all sections
         contentSections.forEach(section => {
             section.classList.remove('show');
         });
 
-        // Scroll to about section and start the animation
+        // Scroll to the about section and start revealing sections
         if (aboutSection) {
             aboutSection.scrollIntoView({ behavior: 'smooth' });
-            
+
             setTimeout(() => {
                 revealSection(0);
             }, 500);
@@ -107,22 +110,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Scroll Arrow Event Listeners
+    // Attach event listener to the scroll arrow
     if (scrollArrow) {
-        scrollArrow.addEventListener('click', function(e) {
+        scrollArrow.addEventListener('click', function (e) {
             e.preventDefault();
-            e.stopPropagation();
+            console.log('Scroll Arrow Clicked'); // Debugging log
             startAnimation();
         });
 
-        // Stop animation on user interaction
+        // Stop the animation if the user interacts manually
         document.addEventListener('wheel', stopAnimation);
         document.addEventListener('touchstart', stopAnimation);
         document.addEventListener('keydown', stopAnimation);
+    } else {
+        console.error('Scroll arrow not found'); // Debugging log
     }
 
     // Close dropdowns when clicking outside
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         if (!e.target.closest('.dropdown')) {
             dropdowns.forEach(dropdown => {
                 dropdown.classList.remove('active');
@@ -130,8 +135,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ESC key handling
-    document.addEventListener('keydown', function(e) {
+    // ESC key to close dropdowns
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
             dropdowns.forEach(dropdown => {
                 dropdown.classList.remove('active');
@@ -140,11 +145,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Handle window resize
+    // Handle window resize for dropdowns
     let resizeTimer;
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', function () {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
+        resizeTimer = setTimeout(function () {
             if (window.innerWidth > 768) {
                 dropdowns.forEach(dropdown => {
                     dropdown.classList.remove('active');
@@ -153,10 +158,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 250);
     });
 
-    // Contact Form handling (if exists)
+    // Contact form handling (if exists)
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
-        contactForm.addEventListener('submit', function() {
+        contactForm.addEventListener('submit', function () {
             const button = document.getElementById('submitButton');
             if (button) {
                 button.classList.add('loading');
@@ -164,3 +169,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
