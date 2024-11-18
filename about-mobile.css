@@ -1,0 +1,68 @@
+/* about-mobile.css - Specific styles for the about page */
+@media screen and (max-width: 768px) {
+    /* Hero Mobile Adjustments */
+    .hero {
+        padding: 50px 20px;
+        display: block;
+    }
+
+    .hero > * {
+        width: auto;
+    }
+
+    .hero h1 {
+        font-size: 3em;
+    }
+
+    .hero-description {
+        font-size: 1.1em;
+    }
+
+    /* About Me Section Mobile */
+    .about-me-content {
+        flex-direction: column !important;
+        text-align: center !important;
+        margin-bottom: 40px;
+    }
+
+    .about-me-content .about-me-images {
+        order: 0 !important;
+        margin: 20px 0;
+    }
+
+    .about-me-content img {
+        width: 100%;
+        max-width: 100%;
+        margin: 20px 0;
+    }
+
+    .about-me-text p {
+        text-align: center;
+        font-size: 1.1em;
+    }
+
+    /* Contact Form Mobile */
+    .contact-form {
+        padding: 0 15px;
+    }
+
+    .submit-button {
+        width: 100%;
+        margin: 10px 0;
+    }
+}
+
+/* Smaller screens */
+@media screen and (max-width: 480px) {
+    .hero h1 {
+        font-size: 2em;
+    }
+
+    .hero-description {
+        font-size: 1em;
+    }
+
+    .about-me-text p {
+        font-size: 1em;
+    }
+}
