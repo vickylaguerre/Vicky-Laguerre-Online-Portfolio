@@ -30,70 +30,97 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Scroll Animation Functionality
+    // Fixed Scroll Animation Functionality
     const scrollArrow = document.getElementById('scrollArrow');
-    const textElements = document.querySelectorAll('.about-me-content .about-me-text p');
+    const aboutMeSection = document.querySelector('.about-me-section');
     const contentSections = document.querySelectorAll('.about-me-content');
+    let isAutoScrolling = false;
     let currentIndex = 0;
-    let autoScrollActive = false;
-    let autoScrollTimeout;
+    let scrollTimeout;
 
-    function scrollToNextParagraph() {
-        if (currentIndex < textElements.length && autoScrollActive) {
-            const targetContent = textElements[currentIndex].closest('.about-me-content');
+    // Show first content section by default
+    if (contentSections.length > 0) {
+        contentSections[0].classList.add('show');
+    }
+
+    function showNextSection() {
+        if (!isAutoScrolling || currentIndex >= contentSections.length) {
+            return;
+        }
+
+        // Show current section
+        if (contentSections[currentIndex]) {
+            contentSections[currentIndex].classList.add('show');
             
-            const offset = targetContent.getBoundingClientRect().top + window.scrollY - 
-                          (window.innerHeight / 2) + (targetContent.offsetHeight / 2) - 50;
+            // Scroll to the current section
+            const offset = contentSections[currentIndex].offsetTop - 100; // Adjust offset as needed
+            window.scrollTo({
+                top: offset,
+                behavior: 'smooth'
+            });
 
-            window.scrollTo({ top: offset, behavior: 'smooth' });
-            targetContent.classList.add('show');
             currentIndex++;
 
-            const isLastText = textElements[currentIndex - 1].textContent.includes("I can't wait to design for you");
-
-            if (isLastText) {
-                autoScrollTimeout = setTimeout(() => {
-                    if (autoScrollActive) {
-                        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-                    }
-                }, 4000);
+            // Schedule next section
+            if (currentIndex < contentSections.length) {
+                scrollTimeout = setTimeout(showNextSection, 2000); // Adjust timing as needed
             } else {
-                autoScrollTimeout = setTimeout(scrollToNextParagraph, 4000);
+                // At the end, scroll to contact section
+                setTimeout(() => {
+                    if (isAutoScrolling) {
+                        const contactSection = document.getElementById('get-in-touch');
+                        if (contactSection) {
+                            contactSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                }, 2000);
+            }
+        }
+    }
+
+    function startAutoScroll() {
+        if (!isAutoScrolling) {
+            isAutoScrolling = true;
+            currentIndex = 0;
+            
+            // Hide all sections initially
+            contentSections.forEach(section => {
+                section.classList.remove('show');
+            });
+
+            // Start the sequence
+            if (aboutMeSection) {
+                aboutMeSection.scrollIntoView({ behavior: 'smooth' });
+                setTimeout(showNextSection, 1000);
             }
         }
     }
 
     function stopAutoScroll() {
-        if (autoScrollActive) {
-            autoScrollActive = false;
-            clearTimeout(autoScrollTimeout);
-            currentIndex = 0;
-            contentSections.forEach(section => section.classList.add('show'));
-        }
-    }
-
-    function startAutoScroll() {
-        stopAutoScroll();
-        autoScrollActive = true;
-        currentIndex = 0;
-
-        contentSections.forEach((section, index) => {
-            section.classList.toggle('show', index === 0);
+        isAutoScrolling = false;
+        clearTimeout(scrollTimeout);
+        
+        // Show all sections when stopping
+        contentSections.forEach(section => {
+            section.classList.add('show');
         });
-
-        scrollToNextParagraph();
     }
 
+    // Event Listeners
     if (scrollArrow) {
-        scrollArrow.addEventListener('click', function(e) {
-            e.stopPropagation();
+        scrollArrow.addEventListener('click', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             startAutoScroll();
         });
     }
 
-    document.addEventListener('click', function(event) {
-        if (autoScrollActive && (!scrollArrow || !event.composedPath().includes(scrollArrow))) {
+    // Stop auto-scroll when user interacts
+    document.addEventListener('wheel', stopAutoScroll);
+    document.addEventListener('touchstart', stopAutoScroll);
+    document.addEventListener('keydown', stopAutoScroll);
+    document.addEventListener('click', (e) => {
+        if (!scrollArrow || !e.composedPath().includes(scrollArrow)) {
             stopAutoScroll();
         }
     });
