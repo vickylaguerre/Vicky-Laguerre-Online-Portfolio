@@ -1,61 +1,46 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile Menu
-    const mobileMenuBtn = document.querySelector('.mobile-menu-button');
-    const nav = document.querySelector('nav');
-    const dropdowns = document.querySelectorAll('.dropdown');
-
-    // Mobile menu toggle
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            nav.classList.toggle('mobile-menu-active');
-            this.classList.toggle('active');
-        });
-    }
-
-    // Dropdown handling for mobile
-    dropdowns.forEach(dropdown => {
-        const link = dropdown.querySelector('a');
-        
-        link.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                // Close other dropdowns
-                dropdowns.forEach(d => {
-                    if (d !== dropdown) {
-                        d.classList.remove('active');
-                    }
-                });
-                
-                dropdown.classList.toggle('active');
-            }
-        });
-    });
-
-    // Close mobile menu and dropdowns when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!nav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-            nav.classList.remove('mobile-menu-active');
-            if (mobileMenuBtn) {
-                mobileMenuBtn.classList.remove('active');
-            }
-            dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
-        }
-    });
-
-    // Scroll Animation
+    // Get all necessary elements
     const scrollArrow = document.getElementById('scrollArrow');
     const aboutSection = document.querySelector('.about-me-section');
     const contentSections = document.querySelectorAll('.about-me-content');
+    const dropdowns = document.querySelectorAll('.dropdown');
     let isAnimating = false;
 
-    // Initially hide all sections except first
-    contentSections.forEach((section, index) => {
-        if (index !== 0) {
-            section.classList.remove('show');
+    // Dropdown handling
+    dropdowns.forEach(dropdown => {
+        const link = dropdown.querySelector('a');
+        const dropdownContent = dropdown.querySelector('.dropdown-content');
+        
+        if (dropdownContent) {
+            // On mobile, handle click events
+            link.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    
+                    // Close other dropdowns
+                    dropdowns.forEach(d => {
+                        if (d !== dropdown && d.classList.contains('active')) {
+                            d.classList.remove('active');
+                        }
+                    });
+                    
+                    dropdown.classList.toggle('active');
+                }
+            });
+
+            // Handle dropdown content links
+            const links = dropdownContent.querySelectorAll('a');
+            links.forEach(dropdownLink => {
+                dropdownLink.addEventListener('click', function() {
+                    dropdown.classList.remove('active');
+                });
+            });
         }
+    });
+
+    // Initially hide all sections
+    contentSections.forEach(section => {
+        section.classList.remove('show');
     });
 
     // Show first section by default
@@ -80,9 +65,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (isAnimating) {
                     revealSection(index + 1);
                 }
-            }, 1500);
+            }, 1500); // Delay between sections
         } else {
             isAnimating = false;
+            // Scroll to contact section at the end
             const contactSection = document.getElementById('get-in-touch');
             if (contactSection) {
                 setTimeout(() => {
@@ -102,9 +88,10 @@ document.addEventListener('DOMContentLoaded', function() {
             section.classList.remove('show');
         });
 
-        // Start animation sequence
+        // Scroll to about section and start the animation
         if (aboutSection) {
             aboutSection.scrollIntoView({ behavior: 'smooth' });
+            
             setTimeout(() => {
                 revealSection(0);
             }, 500);
@@ -134,15 +121,46 @@ document.addEventListener('DOMContentLoaded', function() {
         document.addEventListener('keydown', stopAnimation);
     }
 
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        }
+    });
+
     // ESC key handling
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
-            nav.classList.remove('mobile-menu-active');
-            if (mobileMenuBtn) {
-                mobileMenuBtn.classList.remove('active');
-            }
-            dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
             stopAnimation();
         }
     });
+
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            if (window.innerWidth > 768) {
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+            }
+        }, 250);
+    });
+
+    // Contact Form handling (if exists)
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function() {
+            const button = document.getElementById('submitButton');
+            if (button) {
+                button.classList.add('loading');
+            }
+        });
+    }
 });
