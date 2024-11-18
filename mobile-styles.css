@@ -110,7 +110,13 @@ nav ul li a:hover {
     color: white;
     text-align: center;
     padding: 50px 20px;
-    position: relative;
+    position: relative; /* Needed for absolute positioning of children */
+    overflow: visible; /* Ensure children aren't clipped */
+    height: 100vh; /* Full-screen height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .fullscreen-hero {
@@ -243,8 +249,11 @@ footer p {
     cursor: pointer;
     color: white;
     transition: opacity 0.3s ease;
-    z-index: 10;
+    z-index: 1000; /* Ensures the arrow is on top */
+    visibility: visible; /* Ensure it's visible */
+    pointer-events: auto; /* Ensure it can be clicked */
 }
+
 
 .scroll-arrow:hover {
     opacity: 0.7;
