@@ -103,7 +103,7 @@ nav ul li a {
     height: 100%;
     justify-content: center;
     gap: 5vh;
-    transform: translateY(-15vh);
+    transform: translateY(15vh); /* Changed from -15vh to 15vh to move content down */
 }
 
 .hero-question:first-of-type {
@@ -209,7 +209,7 @@ nav ul li a {
     }
 
     .hero-content {
-        transform: translateY(-10vh);
+        transform: translateY(10vh); /* Changed from -10vh to 10vh for mobile */
         gap: 4vh;
     }
 
