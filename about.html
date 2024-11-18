@@ -137,9 +137,10 @@
             margin-bottom: 100px;
             opacity: 0;
             transform: translateY(50px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: opacity 0.8s ease, transform 0.8s ease;
             cursor: default;
             text-align: center;
+            will-change: opacity, transform;
         }
 
         .about-me-content.show {
@@ -260,6 +261,7 @@
             cursor: pointer;
             color: white;
             transition: opacity 0.3s ease;
+            z-index: 10;
         }
 
         .scroll-arrow:hover {
