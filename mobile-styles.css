@@ -61,6 +61,11 @@ nav ul li a {
     min-width: 200px;
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    display: none;
+}
+
+.dropdown.active .dropdown-content {
+    display: block;
 }
 
 .dropdown-content a {
@@ -210,23 +215,11 @@ nav ul li a {
     .dropdown-content {
         position: static;
         width: 100%;
-        display: none;
         background-color: rgba(44, 62, 80, 0.95);
         box-shadow: none;
         padding: 0;
     }
 
-    .dropdown.active .dropdown-content {
-        display: block;
-    }
-
-    .dropdown-content a {
-        padding: 10px 20px;
-        text-align: center;
-        color: white;
-    }
-
-    /* Add dropdown indicator */
     .dropdown > a::after {
         content: '▼';
         display: inline-block;
@@ -256,16 +249,6 @@ nav ul li a {
         margin: 0 auto;
         max-width: 400px;
     }
-
-    .category img {
-        width: 100%;
-        height: auto;
-    }
-
-    .category h3 {
-        margin: 10px 0;
-        font-size: 1.2em;
-    }
 }
 
 /* Desktop Styles */
@@ -294,7 +277,6 @@ nav ul li a {
         top: 100%;
         left: 50%;
         transform: translateX(-50%);
-        display: none;
     }
 
     .dropdown:hover .dropdown-content {
@@ -345,20 +327,5 @@ footer {
 
     .scroll-arrow:hover {
         opacity: 0.7;
-    }
-}
-
-/* Fix for iOS Safari momentum scrolling */
-.dropdown-content {
-    -webkit-overflow-scrolling: touch;
-}
-
-/* Ensure proper touch targets for mobile */
-@media (hover: none) and (pointer: coarse) {
-    nav ul li a,
-    .footer-icons a,
-    .category a {
-        min-height: 44px;
-        min-width: 44px;
     }
 }
